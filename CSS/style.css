@@ -1,3 +1,30 @@
+body {
+    font-size: 16px;
+}
+
+/*Nos permite que el texto este justificado*/
 .texto-justificado {
     text-align: justify;
+}
+
+.card:hover {
+    opacity: 0.7;
+}
+
+.card-text {
+    text-align: justify;
+}
+
+
+/*Nos permite que la caja de texto no se despliegue o aumente el tamaño*/
+#txtComment {
+    resize: none;
+}
+
+/*Para la propia media qwery del tamaño para el texto cuando 
+la pantalla reduzca (hay que tener el body especificado en el font-size 16px )*/
+@media (max-width: 576px) {
+    .card-text {
+        font-size: 0.8rem;
+    }
 }
