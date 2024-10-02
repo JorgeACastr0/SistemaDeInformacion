@@ -18,3 +18,12 @@ window.addEventListener("load", () => {
 
 
 })
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebarToggle = document.querySelector('.navbar-toggler');
+    const body = document.body;
+
+    sidebarToggle.addEventListener('click', function () {
+        body.classList.toggle('sidebar-open');
+    });
+});

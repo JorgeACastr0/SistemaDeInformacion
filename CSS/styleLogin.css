@@ -26,66 +26,34 @@ body {
 
 
 /*Estilos del panel Administrador*/
+
+
+
 @media (max-width: 768px) {
-    .navbar {
-        width: 100%;
-        height: auto; /* Se ajusta a la altura del contenido */
-       
-    }}
+    nav {
+        position: absolute;
+        z-index: 1000;
+        width: 250px;
+        height: 100vh;
+        
+        
+    }
 
-.app-header {
-    padding: 0 1.5rem;
-    background: #1a73e8;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-.align-items-center {
-    align-items: center;
-}
-.d-flex {
-     display: flex;
+    nav.show {
+        transform: translateX(0);
+    }
+
+  
 }
 
+@media (min-width: 769px) {
+    nav {
+        position: absolute;
+        transform: translateX(0);
+    }
 
-.custom-intro {
-    background-color: #007bff; /* Color de fondo */
-    color: white; /* Color del texto */
-    padding: 100px; /* Ajusta el padding */
-    font-size: 2.5rem; /* Ajusta el tamaño de la fuente */
-    margin-bottom: 1.5rem ;
-
-    position: sticky;
-    top: 69px;
-    z-index: 10;
-    box-sizing: border-box;
+  
 }
-
-.custom-header{
-    background-color: #000000; /* Color de fondo */
-    padding: 10px; /* Ajusta el padding */
-
-}
-
-div {
-    display: block;
-    unicode-bidi: isolate;
-}
-
-.app-brand {
-    min-height: 69px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.app-brand .logo {
-    max-width: 200px;
-    max-height: 40px;
-}
-
-
-
 
 
 
