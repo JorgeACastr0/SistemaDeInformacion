@@ -55,24 +55,24 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" id="showDocentes">
                                 <span data-feather="users"></span>
                                 Docentes
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" id="showEstudiantes">
                                 <span data-feather="layers"></span>
                                 Estudiantes
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" id="showReportes">
                                 <span data-feather="file"></span>
                                 Reportes
                             </a>
                         </li>
-                        
+
                     </ul>
                     <h6 class=" text-bg-light sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted ">
                         <span>Reportes guardados</span>
@@ -117,6 +117,7 @@
                             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
                             <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
                         </div>
+
                         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
                             <span data-feather="calendar"></span>
                             This week
@@ -124,146 +125,194 @@
                     </div>
                 </div>
 
-                <!--Espacio de grafica-->
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-                <h2>Section title</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1,001</td>
-                                <td>random</td>
-                                <td>data</td>
-                                <td>placeholder</td>
-                                <td>text</td>
-                            </tr>
-                            <tr>
-                                <td>1,002</td>
-                                <td>placeholder</td>
-                                <td>irrelevant</td>
-                                <td>visual</td>
-                                <td>layout</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>data</td>
-                                <td>rich</td>
-                                <td>dashboard</td>
-                                <td>tabular</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>information</td>
-                                <td>placeholder</td>
-                                <td>illustrative</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,004</td>
-                                <td>text</td>
-                                <td>random</td>
-                                <td>layout</td>
-                                <td>dashboard</td>
-                            </tr>
-                            <tr>
-                                <td>1,005</td>
-                                <td>dashboard</td>
-                                <td>irrelevant</td>
-                                <td>text</td>
-                                <td>placeholder</td>
-                            </tr>
-                            <tr>
-                                <td>1,006</td>
-                                <td>dashboard</td>
-                                <td>illustrative</td>
-                                <td>rich</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,007</td>
-                                <td>placeholder</td>
-                                <td>tabular</td>
-                                <td>information</td>
-                                <td>irrelevant</td>
-                            </tr>
-                            <tr>
-                                <td>1,008</td>
-                                <td>random</td>
-                                <td>data</td>
-                                <td>placeholder</td>
-                                <td>text</td>
-                            </tr>
-                            <tr>
-                                <td>1,009</td>
-                                <td>placeholder</td>
-                                <td>irrelevant</td>
-                                <td>visual</td>
-                                <td>layout</td>
-                            </tr>
-                            <tr>
-                                <td>1,010</td>
-                                <td>data</td>
-                                <td>rich</td>
-                                <td>dashboard</td>
-                                <td>tabular</td>
-                            </tr>
-                            <tr>
-                                <td>1,011</td>
-                                <td>information</td>
-                                <td>placeholder</td>
-                                <td>illustrative</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,012</td>
-                                <td>text</td>
-                                <td>placeholder</td>
-                                <td>layout</td>
-                                <td>dashboard</td>
-                            </tr>
-                            <tr>
-                                <td>1,013</td>
-                                <td>dashboard</td>
-                                <td>irrelevant</td>
-                                <td>text</td>
-                                <td>visual</td>
-                            </tr>
-                            <tr>
-                                <td>1,014</td>
-                                <td>dashboard</td>
-                                <td>illustrative</td>
-                                <td>rich</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,015</td>
-                                <td>random</td>
-                                <td>tabular</td>
-                                <td>information</td>
-                                <td>text</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!--Contenidos especificos (Docentes, Estudiantes y reportes)-->
+
+                <div id="docentesContent" style="display: none;">
+                    <h2>Docentes</h2>
+                    <p>Aquí va el contenido de los docentes...</p>
+                </div>
+                <div id="estudiantesContent" style="display: none;">
+                    <h2>Estudiantes</h2>
+                    <p>Aquí va el contenido de los estudiantes...</p>
+                </div>
+
+                <div id="reportesContent" style="display: none;">
+                    <h2>Reportes</h2>
+                    <p>Aquí va el contenido de los reportes...</p>
+                </div>
+
+
+
+
+                <div id="mainContent"> <!--Se implementa para que desaparezca el contenido cuando Js active algun modulo-->
+                    <!--Espacio de grafica-->
+                    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                    <h2>Section title</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Header</th>
+                                    <th scope="col">Header</th>
+                                    <th scope="col">Header</th>
+                                    <th scope="col">Header</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1,001</td>
+                                    <td>random</td>
+                                    <td>data</td>
+                                    <td>placeholder</td>
+                                    <td>text</td>
+                                </tr>
+                                <tr>
+                                    <td>1,002</td>
+                                    <td>placeholder</td>
+                                    <td>irrelevant</td>
+                                    <td>visual</td>
+                                    <td>layout</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>data</td>
+                                    <td>rich</td>
+                                    <td>dashboard</td>
+                                    <td>tabular</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>information</td>
+                                    <td>placeholder</td>
+                                    <td>illustrative</td>
+                                    <td>data</td>
+                                </tr>
+                                <tr>
+                                    <td>1,004</td>
+                                    <td>text</td>
+                                    <td>random</td>
+                                    <td>layout</td>
+                                    <td>dashboard</td>
+                                </tr>
+                                <tr>
+                                    <td>1,005</td>
+                                    <td>dashboard</td>
+                                    <td>irrelevant</td>
+                                    <td>text</td>
+                                    <td>placeholder</td>
+                                </tr>
+                                <tr>
+                                    <td>1,006</td>
+                                    <td>dashboard</td>
+                                    <td>illustrative</td>
+                                    <td>rich</td>
+                                    <td>data</td>
+                                </tr>
+                                <tr>
+                                    <td>1,007</td>
+                                    <td>placeholder</td>
+                                    <td>tabular</td>
+                                    <td>information</td>
+                                    <td>irrelevant</td>
+                                </tr>
+                                <tr>
+                                    <td>1,008</td>
+                                    <td>random</td>
+                                    <td>data</td>
+                                    <td>placeholder</td>
+                                    <td>text</td>
+                                </tr>
+                                <tr>
+                                    <td>1,009</td>
+                                    <td>placeholder</td>
+                                    <td>irrelevant</td>
+                                    <td>visual</td>
+                                    <td>layout</td>
+                                </tr>
+                                <tr>
+                                    <td>1,010</td>
+                                    <td>data</td>
+                                    <td>rich</td>
+                                    <td>dashboard</td>
+                                    <td>tabular</td>
+                                </tr>
+                                <tr>
+                                    <td>1,011</td>
+                                    <td>information</td>
+                                    <td>placeholder</td>
+                                    <td>illustrative</td>
+                                    <td>data</td>
+                                </tr>
+                                <tr>
+                                    <td>1,012</td>
+                                    <td>text</td>
+                                    <td>placeholder</td>
+                                    <td>layout</td>
+                                    <td>dashboard</td>
+                                </tr>
+                                <tr>
+                                    <td>1,013</td>
+                                    <td>dashboard</td>
+                                    <td>irrelevant</td>
+                                    <td>text</td>
+                                    <td>visual</td>
+                                </tr>
+                                <tr>
+                                    <td>1,014</td>
+                                    <td>dashboard</td>
+                                    <td>illustrative</td>
+                                    <td>rich</td>
+                                    <td>data</td>
+                                </tr>
+                                <tr>
+                                    <td>1,015</td>
+                                    <td>random</td>
+                                    <td>tabular</td>
+                                    <td>information</td>
+                                    <td>text</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
 
+
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script> <!--Colocar acceso a Bootstrap Js-->
 
     <script src="Js-Proyecto/main.js"></script>
     <script>
-        feather.replace(); // Inicializa Feather Icons
+        feather.replace(); // Inicializa Feather Icons (Para que esten disponibles cuando se inicialice el sistema)
     </script>
+
+<!--Permite accionar ventanas y oculta contenido (Menu,Docentes,Estudiantes,Reportes)-->
+    <script>
+        function showContent(contentId) {
+            var contents = ['docentesContent', 'estudiantesContent', 'reportesContent', 'mainContent'];
+            contents.forEach(function(id) {
+                var element = document.getElementById(id);
+                element.style.display = (id === contentId) ? 'block' : 'none';
+            });
+        }
+
+        document.getElementById('showDocentes').addEventListener('click', function() {
+            showContent('docentesContent');
+        });
+
+        document.getElementById('showEstudiantes').addEventListener('click', function() {
+            showContent('estudiantesContent');
+        });
+
+        document.getElementById('showReportes').addEventListener('click', function() {
+            showContent('reportesContent');
+        });
+    </script>
+
+
+
 
 </body>
 
