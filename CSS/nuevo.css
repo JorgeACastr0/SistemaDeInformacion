@@ -21,8 +21,10 @@ body {
   bottom: 0;
   /* rtl:remove */
   left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  z-index: 100;
+  /* Behind the navbar */
+  padding: 48px 0 0;
+  /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -38,7 +40,8 @@ body {
   height: calc(100vh - 48px);
   padding-top: 0.5rem;
   overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  overflow-y: auto;
+  /* Scrollable contents if viewport is shorter than content. */
 }
 
 .sidebar .nav-link {
@@ -64,12 +67,15 @@ body {
   font-size: 0.75rem;
   text-transform: uppercase;
 }
+
 .h6 {
   color: #dee2e6;
 }
+
 h6 {
   color: #dee2e6;
 }
+
 /*
    * Navbar
    */
@@ -120,7 +126,8 @@ h6 {
 
 .table {
   border-collapse: separate;
-  border-spacing: 0 0.5rem; /* Espaciado entre filas */
+  border-spacing: 0 0.5rem;
+  /* Espaciado entre filas */
 }
 
 .table td,
@@ -137,7 +144,8 @@ h6 {
 }
 
 .navbar-nav .nav-link:hover {
-  color: #ff4d4d; /* Cambiar a un tono rojo suave al pasar el mouse */
+  color: #ff4d4d;
+  /* Cambiar a un tono rojo suave al pasar el mouse */
 }
 
 /*Modificaciones nuevas*/
@@ -145,27 +153,165 @@ h6 {
 @media (max-width: 767.98px) {
   #sidebarMenu {
     position: fixed;
-    top: 0; /* Alineación con la parte superior de la pantalla */
-    left: 0; /* Fijo a la izquierda */
-    width: 250px; /* Establece el ancho deseado para el sidebar desplegado */
-    height: 100vh; /* Que ocupe toda la altura */
-    z-index: 1050; /* Asegura que esté encima del contenido pero debajo del modal si hubiera */
-    background-color: #343a40; /* Color de fondo */
-    transition: transform 0.3s ease-in-out; /* Suaviza el efecto de transición */
+    top: 0;
+    /* Alineación con la parte superior de la pantalla */
+    left: 0;
+    /* Fijo a la izquierda */
+    width: 250px;
+    /* Establece el ancho deseado para el sidebar desplegado */
+    height: 100vh;
+    /* Que ocupe toda la altura */
+    z-index: 1050;
+    /* Asegura que esté encima del contenido pero debajo del modal si hubiera */
+    background-color: #343a40;
+    /* Color de fondo */
+    transition: transform 0.3s ease-in-out;
+    /* Suaviza el efecto de transición */
   }
 
   /* Ocultar el contenido principal mientras el sidebar está abierto */
   body.sidebar-open main {
-    margin-left: 250px; /* Ajustar el contenido principal al ancho del sidebar */
+    margin-left: 250px;
+    /* Ajustar el contenido principal al ancho del sidebar */
   }
 
   /* Estilo para ocultar el sidebar cuando está colapsado */
   #sidebarMenu.collapse:not(.show) {
-    transform: translateX(-100%); /* Desplaza el sidebar fuera de la pantalla */
+    transform: translateX(-100%);
+    /* Desplaza el sidebar fuera de la pantalla */
   }
 
   /* Mostrar el sidebar cuando se despliega */
   #sidebarMenu.collapse.show {
     transform: translateX(0);
   }
+}
+
+
+
+
+
+/*Aqui voy a colocar style de panel Admin*/
+
+
+#editarFormulario {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+#editarFormulario input[type="text"],
+#editarFormulario input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#editarFormulario input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#editarFormulario input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.form-empleados {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+/* Estilos para los inputs del formulario */
+.form-empleados input[type="text"],
+.form-empleados input[type="number"],
+.form-empleados input[type="submit"] {
+  flex: 1 1 150px;
+  /* Ajusta el tamaño base de los campos */
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Estilo específico para el botón de submit */
+.form-empleados input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form-empleados input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+
+
+table.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+table.styled-table th,
+table.styled-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+table.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+table.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+table.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+table.styled-table tbody td form button {
+  background-color: #2295b8;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+table.styled-table tbody td form button:hover {
+  background-color: #1f82a0;
+}
+
+table.styled-table tbody td form button[name="delete"] {
+  background-color: #f44336;
+}
+
+table.styled-table tbody td form button[name="delete"]:hover {
+  background-color: #e53935;
 }
