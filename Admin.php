@@ -136,187 +136,7 @@
                     <h2>Docentes</h2>
                     <p>Aquí va el contenido de los docentes...</p>
                     <!--panelAdmin-->
-                    <form class="form-empleados" action="panelAdmin.php" method="post">
-                        <input type="number" id="cedula" name="Cedula" placeholder="Cedula" required>
-                        <input type="text" id="nombre" name="Nombre" placeholder="Nombre" minlength="3" maxlength="40"
-                            required>
-                        <input type="text" id="Apellido" name="Apellido" placeholder="Apellido" minlength="3"
-                            maxlength="40" required><br><br>
-                        <input type="text" id="Usuario" name="Usuario" placeholder="Usuario" minlength="3"
-                            maxlength="40" required><br><br>
-                        <input type="text" id="Clave" name="Clave" placeholder="Clave" minlength="3" maxlength="40"
-                            required><br><br>
-                        <input type="text" id="Telefono" name="Telefono" placeholder="Telefono" minlength="10"
-                            maxlength="10" required><br><br>
-                        <input type="text" id="TipoUsuario" name="TipoUsuario" placeholder="Administrador/Usuario"
-                            required><br><br>
 
-                        <input type="submit" value="Agregar">
-                    </form>
-
-                    <?php
-                    if (isset($_POST["Nombre"]) && isset($_POST["Cedula"]) && isset($_POST["Apellido"]) && isset($_POST["Telefono"])) {
-
-                        $nombreEmpleado = mysqli_real_escape_string($datosConexion, $_POST["Nombre"]);
-                        $apellidoEmpleado = mysqli_real_escape_string($datosConexion, $_POST["Apellido"]);
-                        $telefono = $_POST["Telefono"];
-                        $ID = $_POST["Cedula"];
-
-
-                        $insertarEmpleadosSQL = "INSERT INTO Empleados (IDEmpleado, NombreEmpleado, Telefono, ApellidoEmpleado) VALUES ($ID,'$nombreEmpleado', $telefono, '$apellidoEmpleado');";
-                        mysqli_query($datosConexion, $insertarEmpleadosSQL);
-                        echo "Se han introducidos los siguientes datos:" . $nombreEmpleado . $apellidoEmpleado . $telefono . " Satisfactoriamente";
-                        echo "<meta http-equiv='refresh' content='0; url=#empleados'>";
-
-
-                    }
-
-                    if (isset($_POST["Cedula"]) && isset($_POST["Usuario"]) && isset($_POST["Clave"]) && isset($_POST["TipoUsuario"])) {
-                        $ID = $_POST["Cedula"];
-                        $Usuario = mysqli_real_escape_string($datosConexion, $_POST["Usuario"]);
-                        $Clave = mysqli_real_escape_string($datosConexion, $_POST["Clave"]);
-                        $tipoUsuario = mysqli_real_escape_string($datosConexion, $_POST["TipoUsuario"]);
-
-
-                        $insertarUsuariosSQL = "INSERT INTO Usuarios (IDUsuarios, NombreUsuario, Clave, TipoUsuario, idEmpleados) VALUES ($ID, '$Usuario', '$Clave', '$tipoUsuario', $ID)";
-
-                        mysqli_query($datosConexion, $insertarUsuariosSQL);
-                    }
-                    ?>
-                    <div>
-                        <hr>
-                        <h2>Usuarios Registrados</h2>
-                        <table class="styled-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Telefono</th>
-                                    <th>Username</th>
-                                    <th>Contraseña</th>
-                                    <th>Tipo </th>
-                                    <th></th>
-                                    <th></th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <?php
-                                $leerUsuariosSQL = "SELECT 
-                        Empleados.*, 
-                        Usuarios.*
-                    FROM 
-                        Empleados
-                    INNER JOIN 
-                        Usuarios 
-                    ON 
-                        Empleados.IDEmpleado =  Usuarios.idEmpleados
-                    ORDER BY 
-                        Empleados.IDEmpleado";
-
-
-                                //$query = mysqli_query($datosConexion, $leerUsuariosSQL);
-                                
-
-
-                                //while ($row = mysqli_fetch_array($query)): ?>
-
-
-                                <tr>
-
-                                    <!--<th><?= $row["IDUsuarios"] ?></th>
-                                                    <th><?= $row["NombreEmpleado"] ?></th>
-                                                    <th><?= $row["ApellidoEmpleado"] ?></th>
-                                                    <th><?= $row["Telefono"] ?></th>
-                                                    <th><?= $row["NombreUsuario"]; ?></th>
-                                                    <th><?= $row["Clave"] ?></th>
-                                                    <th><?= $row["TipoUsuario"] ?></th>
-                                                    <td>
-                                                        -->
-                                    <!--
-                                                        <form method='POST'>
-                                                        <input type='hidden' name='id' value=<?= $row["IDUsuarios"] ?>>-->
-                                    <button type='submit' name='editar'>Editar</button>
-
-                                    </form>
-                                    </td>
-                                    <td>
-                                        <!--
-                                                        <form method='POST' action=''>
-                                                            <input type='hidden' name='id' value=<?= $row["IDUsuarios"] ?>> -->
-                                        <button type='submit' name='delete'>Eliminar</button>
-                                        </form>
-
-                                    </td>
-                                </tr>
-
-                                <?php //endwhile; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <?php
-
-                    if (isset($_POST['editar'])) {
-                        $id = $_POST['id'];
-                        $sql = "SELECT * FROM Usuarios WHERE IDUsuarios = $id";
-                        $query = mysqli_query($datosConexion, $sql);
-                        $row = mysqli_fetch_array($query);
-
-                        $idEmpleado = $row['idEmpleados'];
-                        $sqlEmpleado = "SELECT * FROM Empleados WHERE IDEmpleado = $idEmpleado";
-                        $queryEmpleado = mysqli_query($datosConexion, $sqlEmpleado);
-                        $rowEmpleado = mysqli_fetch_array($queryEmpleado);
-
-                        echo "<div id='editarFormulario'>
-                    <h2>Editar Usuario</h2>
-                    <form action='panelAdmin.php' method='post'>
-                        <input type='hidden' name='id' value='{$row['IDUsuarios']}'>
-                        <input type='text' name='Nombre' value='{$rowEmpleado['NombreEmpleado']}' required><br><br>
-                        <input type='text' name='Apellido' value='{$rowEmpleado['ApellidoEmpleado']}' required><br><br>
-                        <input type='number' name='Telefono' value='{$rowEmpleado['Telefono']}' required><br><br>
-                        <input type='text' name='Usuario' value='{$row['NombreUsuario']}' required><br><br>
-                        <input type='text' name='Clave' value='{$row['Clave']}' required><br><br>
-                        <input type='text' name='TipoUsuario' value='{$row['TipoUsuario']}' required><br><br>
-                        <input type='submit' name='update' value='Actualizar'>
-                    </form>
-                </div>";
-                    }
-
-                    if (isset($_POST['update'])) {
-                        $id = $_POST['id'];
-                        $nombre = mysqli_real_escape_string($datosConexion, $_POST['Nombre']);
-                        $apellido = mysqli_real_escape_string($datosConexion, $_POST['Apellido']);
-                        $telefono = mysqli_real_escape_string($datosConexion, $_POST['Telefono']);
-                        $usuario = mysqli_real_escape_string($datosConexion, $_POST['Usuario']);
-                        $clave = mysqli_real_escape_string($datosConexion, $_POST['Clave']);
-                        $tipoUsuario = mysqli_real_escape_string($datosConexion, $_POST['TipoUsuario']);
-
-                        $sqlUpdateEmpleado = "UPDATE Empleados SET NombreEmpleado='$nombre', ApellidoEmpleado='$apellido', Telefono='$telefono' WHERE IDEmpleado=(SELECT idEmpleados FROM Usuarios WHERE IDUsuarios=$id)";
-                        $sqlUpdateUsuario = "UPDATE Usuarios SET NombreUsuario='$usuario', Clave='$clave', TipoUsuario='$tipoUsuario' WHERE IDUsuarios=$id";
-
-                        mysqli_query($datosConexion, $sqlUpdateEmpleado);
-                        mysqli_query($datosConexion, $sqlUpdateUsuario);
-
-                        echo "<meta http-equiv='refresh' content='0'>";
-
-                    }
-
-
-                    if (isset($_POST['delete'])) {
-                        $id = $_POST['id'];
-
-                        $sqlEliminar = "DELETE FROM Usuarios WHERE IDUsuarios = $id";
-                        $queryEliminar = mysqli_query($datosConexion, $sqlEliminar);
-                        echo "<meta http-equiv='refresh' content='0'>";
-
-                    } else {
-
-                    }
-
-
-                    ?>
 
                 </div>
 
@@ -336,6 +156,7 @@
 
 
                 <div id="mainContent">
+
                     <!--Se implementa para que desaparezca el contenido cuando Js active algun modulo-->
                     <!--Espacio de grafica-->
                     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
@@ -478,30 +299,30 @@
 
     <script src="Js-Proyecto/main.js"></script>
     <script>
-        feather.replace(); // Inicializa Feather Icons (Para que esten disponibles cuando se inicialice el sistema)
+    feather.replace(); // Inicializa Feather Icons (Para que esten disponibles cuando se inicialice el sistema)
     </script>
 
     <!--Permite accionar ventanas y oculta contenido (Menu,Docentes,Estudiantes,Reportes)-->
     <script>
-        function showContent(contentId) {
-            var contents = ['docentesContent', 'estudiantesContent', 'reportesContent', 'mainContent'];
-            contents.forEach(function (id) {
-                var element = document.getElementById(id);
-                element.style.display = (id === contentId) ? 'block' : 'none';
-            });
-        }
-
-        document.getElementById('showDocentes').addEventListener('click', function () {
-            showContent('docentesContent');
+    function showContent(contentId) {
+        var contents = ['docentesContent', 'estudiantesContent', 'reportesContent', 'mainContent'];
+        contents.forEach(function(id) {
+            var element = document.getElementById(id);
+            element.style.display = (id === contentId) ? 'block' : 'none';
         });
+    }
 
-        document.getElementById('showEstudiantes').addEventListener('click', function () {
-            showContent('estudiantesContent');
-        });
+    document.getElementById('showDocentes').addEventListener('click', function() {
+        showContent('docentesContent');
+    });
 
-        document.getElementById('showReportes').addEventListener('click', function () {
-            showContent('reportesContent');
-        });
+    document.getElementById('showEstudiantes').addEventListener('click', function() {
+        showContent('estudiantesContent');
+    });
+
+    document.getElementById('showReportes').addEventListener('click', function() {
+        showContent('reportesContent');
+    });
     </script>
 
 
