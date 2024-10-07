@@ -1,4 +1,8 @@
 <?php
+include("BD/conexion.php");
+$leerDocentesSQL = "SELECT * FROM Docentes";
+$query = mysqli_query($conn, $leerDocentesSQL);
+
 
 
 ?>
@@ -116,8 +120,8 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
+                    <h1 class="h2" id="page-title"> </h1>
+                    <div class="btn-toolbar ">
                         <div class="btn-group me-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
                             <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
@@ -130,12 +134,63 @@
                     </div>
                 </div>
 
+
+
+
+
+
                 <!--Contenidos especificos (Docentes, Estudiantes y reportes)-->
 
                 <div id="docentesContent" style="display: none;">
-                    <h2>Docentes</h2>
-                    <p>Aquí va el contenido de los docentes...</p>
+
+
                     <!--panelAdmin-->
+                    <div class="table-responsive ">
+                        <table class="table  table-sm table-hover table-dark styled-table ">
+                            <thead>
+                                <tr class=" text-center">
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Email</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                if ($query) {
+                                    while ($row = mysqli_fetch_array($query)) {
+                                        ?>
+                                <tr>
+                                    <td><?= $row["Id_Docente"] ?></td>
+                                    <td><?= $row["Nombre"] ?></td>
+                                    <td><?= $row["Apellido"] ?></td>
+                                    <td><?= $row["Email"] ?></td>
+                                    <td>
+                                        <form class=" text-center" method='POST'>
+                                            <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
+                                            <button type='submit' name='editar'>Editar</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form class=" text-center" method='POST' action=''>
+                                            <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
+                                            <button type='submit' name='delete'>Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php
+                                    }
+                                } else {
+                                    // Manejo de errores
+                                    echo "<tr><td colspan='6'>Error en la consulta: " . mysqli_error($conn) . "</td></tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
 
 
                 </div>
@@ -143,13 +198,12 @@
 
 
                 <div id="estudiantesContent" style="display: none;">
-                    <h2>Estudiantes</h2>
+
                     <p>Aquí va el contenido de los estudiantes...</p>
                 </div>
 
                 <div id="reportesContent" style="display: none;">
-                    <h2>Reportes</h2>
-                    <p>Aquí va el contenido de los reportes...</p>
+                    < <p>Aquí va el contenido de los reportes...</p>
                 </div>
 
 
@@ -327,6 +381,30 @@
 
 
 
+    <!--Script para cambio de nombre automatico-->
+    <script>
+    function showContent(contentId, title) {
+        var contents = ['docentesContent', 'estudiantesContent', 'reportesContent'];
+        contents.forEach(function(id) {
+            var element = document.getElementById(id);
+            element.style.display = (id === contentId) ? 'block' : 'none';
+        });
+        // Actualiza el título de la página
+        document.getElementById('page-title').innerText = title;
+    }
+
+    document.getElementById('showDocentes').addEventListener('click', function() {
+        showContent('docentesContent', 'Docentes');
+    });
+
+    document.getElementById('showEstudiantes').addEventListener('click', function() {
+        showContent('estudiantesContent', 'Estudiantes');
+    });
+
+    document.getElementById('showReportes').addEventListener('click', function() {
+        showContent('reportesContent', 'Reportes');
+    });
+    </script>
 
 </body>
 

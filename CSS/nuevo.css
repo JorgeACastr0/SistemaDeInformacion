@@ -315,3 +315,11 @@ table.styled-table tbody td form button[name="delete"] {
 table.styled-table tbody td form button[name="delete"]:hover {
   background-color: #e53935;
 }
+
+
+/*Parte 2 de la tabla*/
+
+.table tbody tr {
+
+  /* Eliminar márgenes entre filas */
+}
