@@ -1,11 +1,11 @@
 <?php
+session_start();
 include("BD/conexion.php");
-$leerDocentesSQL = "SELECT * FROM Docentes";
-$query = mysqli_query($conn, $leerDocentesSQL);
+$VerDocentesSQL = "SELECT * FROM Docentes";
+$queryDocentes = mysqli_query($conn, $VerDocentesSQL);
+$insertDocenteSQL = "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email,Id_Administrativo, Contraseña, ) VALUES "
 
-
-
-?>
+    ?>
 
 
 <!DOCTYPE html>
@@ -156,28 +156,28 @@ $query = mysqli_query($conn, $leerDocentesSQL);
 
                             <tbody>
                                 <?php
-                                if ($query) {
-                                    while ($row = mysqli_fetch_array($query)) {
+                                if ($queryDocentes) {
+                                    while ($row = mysqli_fetch_array($queryDocentes)) {
                                         ?>
-                                        <tr>
-                                            <td><?= $row["Id_Docente"] ?></td>
-                                            <td><?= $row["Nombre"] ?></td>
-                                            <td><?= $row["Apellido"] ?></td>
-                                            <td><?= $row["Email"] ?></td>
-                                            <td>
-                                                <form class=" text-center" method='POST'>
-                                                    <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
-                                                    <button type='submit' name='editar'>Editar</button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form class=" text-center" method='POST' action=''>
-                                                    <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
-                                                    <button type='submit' name='delete'>Eliminar</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <?php
+                                <tr>
+                                    <td><?= $row["Id_Docente"] ?></td>
+                                    <td><?= $row["Nombre"] ?></td>
+                                    <td><?= $row["Apellido"] ?></td>
+                                    <td><?= $row["Email"] ?></td>
+                                    <td>
+                                        <form class=" text-center" method='POST'>
+                                            <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
+                                            <button type='submit' name='editar'>Editar</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form class=" text-center" method='POST' action=''>
+                                            <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
+                                            <button type='submit' name='delete'>Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php
                                     }
                                 } else {
                                     // Manejo de errores
@@ -187,6 +187,7 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                             </tbody>
                         </table>
                     </div>
+                    <!--Agregar docentes-->
 
 
                     <div>
@@ -194,13 +195,14 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                         <div class="col-12 mb-2">
                             <button id="toggleFormBtn" class="btn btn-secondary">Agregar Docente</button>
                         </div>
+
                         <form id="docenteForm" class="mt-4 needs-validation" novalidate
                             style="display: none; border: 1px solid #ced4da; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 20px;">
                             <div class="row g-3">
                                 <div class="col-md-4">
                                     <label for="validationTooltip05" class="form-label">ID Docente</label>
-                                    <input type="number" placeholder="ID Docente" minlength="2" maxlength="10"
-                                        class="form-control" id="validationTooltip05" required>
+                                    <input type="number" name="id_docente" placeholder="ID Docente" minlength="2"
+                                        maxlength="10" class="form-control" id="validationTooltip05" required>
                                     <div class="invalid-tooltip">
                                         Coloca un ID válido.
                                     </div>
@@ -208,7 +210,7 @@ $query = mysqli_query($conn, $leerDocentesSQL);
 
                                 <div class="col-md-4">
                                     <label for="validationTooltip01" class="form-label">Nombre</label>
-                                    <input type="text" placeholder="Nombre" minlength="3" maxlength="40"
+                                    <input type="text" name="nombre" placeholder="Nombre" minlength="3" maxlength="40"
                                         class="form-control" id="validationTooltip01" required>
                                     <div class="valid-tooltip">
                                         Looks good!
@@ -217,8 +219,8 @@ $query = mysqli_query($conn, $leerDocentesSQL);
 
                                 <div class="col-md-4">
                                     <label for="validationTooltip02" class="form-label">Apellido</label>
-                                    <input type="text" placeholder="Apellido" minlength="3" maxlength="40"
-                                        class="form-control" id="validationTooltip02" required>
+                                    <input type="text" name="apellido" placeholder="Apellido" minlength="3"
+                                        maxlength="40" class="form-control" id="validationTooltip02" required>
                                     <div class="valid-tooltip">
                                         Looks good!
                                     </div>
@@ -227,8 +229,8 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                                 <div class="col-md-6">
                                     <label for="validationTooltipUsername" class="form-label">Correo electrónico</label>
                                     <div class="input-group has-validation">
-                                        <input type="text" placeholder="Correo electrónico" minlength="3" maxlength="40"
-                                            class="form-control" id="validationTooltipUsername"
+                                        <input type="text" name="email" placeholder="Correo electrónico" minlength="3"
+                                            maxlength="40" class="form-control" id="validationTooltipUsername"
                                             aria-describedby="validationTooltipUsernamePrepend" required>
                                         <span class="input-group-text"
                                             id="validationTooltipUsernamePrepend">@uniminuto.edu.co</span>
@@ -240,8 +242,8 @@ $query = mysqli_query($conn, $leerDocentesSQL);
 
                                 <div class="col-md-6">
                                     <label for="validationTooltipPassword" class="form-label">Contraseña</label>
-                                    <input type="password" placeholder="Contraseña" minlength="6" maxlength="15"
-                                        class="form-control" id="validationTooltipPassword" required>
+                                    <input type="password" name="contraseña" placeholder="Contraseña" minlength="6"
+                                        maxlength="15" class="form-control" id="validationTooltipPassword" required>
                                     <div class="invalid-tooltip">
                                         Coloca una contraseña válida.
                                     </div>
@@ -250,6 +252,49 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                                 <div class="col-12">
                                     <button class="btn btn-primary" type="submit">Enviar formulario</button>
                                 </div>
+                                <?php
+                                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                                    var_dump($_POST); // Esto mostrará todos los datos recibidos
+                                    // ... resto del código
+                                }
+
+
+                                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                                    // Recibe los datos del formulario
+                                    $id_docente = $_POST['id_docente'];
+                                    $nombre = $_POST['nombre'];
+                                    $apellido = $_POST['apellido'];
+                                    $correo = $_POST['email'];
+                                    $contraseña = $_POST['contraseña'];
+
+                                    // Concatenar la parte fija del correo
+                                    $email = $correo . '@uniminuto.edu.co';
+
+                                    // Asegúrate de que el ID administrativo esté definido
+                                
+                                    $id_administrativo = $_SESSION['id_administrativo'];
+
+
+                                    // Prepara la consulta
+                                    $stmt = mysqli_prepare($conn, "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email, Id_Administrativo, Contraseña) VALUES (?, ?, ?, ?, ?, ?)");
+                                    mysqli_stmt_bind_param($stmt, 'isssis', $id_docente, $nombre, $apellido, $email, $id_administrativo, $contraseña);
+
+                                    // Ejecuta la consulta
+                                    if (mysqli_stmt_execute($stmt)) {
+                                        echo "Docente agregado con éxito.";
+                                    } else {
+                                        echo "Error al agregar docente: " . mysqli_stmt_error($stmt);
+                                    }
+
+                                    // Cierra la declaración
+                                    mysqli_stmt_close($stmt);
+                                }
+
+                                // Cierra la conexión
+                                mysqli_close($conn);
+
+                                ?>
+
                             </div>
                         </form>
 
@@ -260,16 +305,16 @@ $query = mysqli_query($conn, $leerDocentesSQL);
 
 
                     <script>
-                        document.getElementById('toggleFormBtn').addEventListener('click', function () {
-                            const form = document.getElementById('docenteForm');
-                            if (form.style.display === 'none' || form.style.display === '') {
-                                form.style.display = 'block';
-                                this.textContent = 'Ocultar Formulario';
-                            } else {
-                                form.style.display = 'none';
-                                this.textContent = 'Agregar Docente';
-                            }
-                        });
+                    document.getElementById('toggleFormBtn').addEventListener('click', function() {
+                        const form = document.getElementById('docenteForm');
+                        if (form.style.display === 'none' || form.style.display === '') {
+                            form.style.display = 'block';
+                            this.textContent = 'Ocultar Formulario';
+                        } else {
+                            form.style.display = 'none';
+                            this.textContent = 'Agregar Docente';
+                        }
+                    });
                     </script>
 
 
@@ -309,112 +354,112 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1,001</td>
+
                                     <td>random</td>
                                     <td>data</td>
                                     <td>placeholder</td>
                                     <td>text</td>
                                 </tr>
                                 <tr>
-                                    <td>1,002</td>
+
                                     <td>placeholder</td>
                                     <td>irrelevant</td>
                                     <td>visual</td>
                                     <td>layout</td>
                                 </tr>
                                 <tr>
-                                    <td>1,003</td>
+
                                     <td>data</td>
                                     <td>rich</td>
                                     <td>dashboard</td>
                                     <td>tabular</td>
                                 </tr>
                                 <tr>
-                                    <td>1,003</td>
+
                                     <td>information</td>
                                     <td>placeholder</td>
                                     <td>illustrative</td>
                                     <td>data</td>
                                 </tr>
                                 <tr>
-                                    <td>1,004</td>
+
                                     <td>text</td>
                                     <td>random</td>
                                     <td>layout</td>
                                     <td>dashboard</td>
                                 </tr>
                                 <tr>
-                                    <td>1,005</td>
+
                                     <td>dashboard</td>
                                     <td>irrelevant</td>
                                     <td>text</td>
                                     <td>placeholder</td>
                                 </tr>
                                 <tr>
-                                    <td>1,006</td>
+
                                     <td>dashboard</td>
                                     <td>illustrative</td>
                                     <td>rich</td>
                                     <td>data</td>
                                 </tr>
                                 <tr>
-                                    <td>1,007</td>
+
                                     <td>placeholder</td>
                                     <td>tabular</td>
                                     <td>information</td>
                                     <td>irrelevant</td>
                                 </tr>
                                 <tr>
-                                    <td>1,008</td>
+
                                     <td>random</td>
                                     <td>data</td>
                                     <td>placeholder</td>
                                     <td>text</td>
                                 </tr>
                                 <tr>
-                                    <td>1,009</td>
+
                                     <td>placeholder</td>
                                     <td>irrelevant</td>
                                     <td>visual</td>
                                     <td>layout</td>
                                 </tr>
                                 <tr>
-                                    <td>1,010</td>
+
                                     <td>data</td>
                                     <td>rich</td>
                                     <td>dashboard</td>
                                     <td>tabular</td>
                                 </tr>
                                 <tr>
-                                    <td>1,011</td>
+
                                     <td>information</td>
                                     <td>placeholder</td>
                                     <td>illustrative</td>
                                     <td>data</td>
                                 </tr>
                                 <tr>
-                                    <td>1,012</td>
+
                                     <td>text</td>
                                     <td>placeholder</td>
                                     <td>layout</td>
                                     <td>dashboard</td>
                                 </tr>
                                 <tr>
-                                    <td>1,013</td>
+
                                     <td>dashboard</td>
                                     <td>irrelevant</td>
                                     <td>text</td>
                                     <td>visual</td>
                                 </tr>
                                 <tr>
-                                    <td>1,014</td>
+
                                     <td>dashboard</td>
                                     <td>illustrative</td>
                                     <td>rich</td>
                                     <td>data</td>
                                 </tr>
                                 <tr>
-                                    <td>1,015</td>
+
                                     <td>random</td>
                                     <td>tabular</td>
                                     <td>information</td>
@@ -434,50 +479,50 @@ $query = mysqli_query($conn, $leerDocentesSQL);
 
     <script src="Js-Proyecto/main.js"></script>
     <script>
-        feather.replace(); // Inicializa Feather Icons (Para que esten disponibles cuando se inicialice el sistema)
+    feather.replace(); // Inicializa Feather Icons (Para que esten disponibles cuando se inicialice el sistema)
     </script>
 
 
 
     <!--Permite accionar ventanas y oculta contenido (Menu,Docentes,Estudiantes,Reportes)-->
     <script>
-        function showContent(contentId, title) {
-            // Lista de los IDs de los contenidos que quieres controlar
-            var contents = ['mainContent', 'docentesContent', 'estudiantesContent', 'reportesContent'];
+    function showContent(contentId, title) {
+        // Lista de los IDs de los contenidos que quieres controlar
+        var contents = ['mainContent', 'docentesContent', 'estudiantesContent', 'reportesContent'];
 
-            // Oculta todos los contenidos
-            contents.forEach(function (id) {
-                var element = document.getElementById(id);
-                element.style.display = 'none'; // Ocultar cada sección
-            });
+        // Oculta todos los contenidos
+        contents.forEach(function(id) {
+            var element = document.getElementById(id);
+            element.style.display = 'none'; // Ocultar cada sección
+        });
 
-            // Muestra solo el contenido correspondiente
-            var activeElement = document.getElementById(contentId);
-            if (activeElement) {
-                activeElement.style.display = 'block'; // Mostrar la sección activa
-            }
-
-            // Actualiza el título de la página
-            document.getElementById('page-title').innerText = title;
+        // Muestra solo el contenido correspondiente
+        var activeElement = document.getElementById(contentId);
+        if (activeElement) {
+            activeElement.style.display = 'block'; // Mostrar la sección activa
         }
 
-        // Asocia cada botón de navegación con su contenido correspondiente
-        document.getElementById('showDocentes').addEventListener('click', function () {
-            showContent('docentesContent', 'Docentes');
-        });
+        // Actualiza el título de la página
+        document.getElementById('page-title').innerText = title;
+    }
 
-        document.getElementById('showEstudiantes').addEventListener('click', function () {
-            showContent('estudiantesContent', 'Estudiantes');
-        });
+    // Asocia cada botón de navegación con su contenido correspondiente
+    document.getElementById('showDocentes').addEventListener('click', function() {
+        showContent('docentesContent', 'Docentes');
+    });
 
-        document.getElementById('showReportes').addEventListener('click', function () {
-            showContent('reportesContent', 'Reportes');
-        });
+    document.getElementById('showEstudiantes').addEventListener('click', function() {
+        showContent('estudiantesContent', 'Estudiantes');
+    });
 
-        // Agrega el evento para el Menu Principal
-        document.querySelector('.nav-link.active').addEventListener('click', function () {
-            showContent('mainContent', 'Main Content');
-        });
+    document.getElementById('showReportes').addEventListener('click', function() {
+        showContent('reportesContent', 'Reportes');
+    });
+
+    // Agrega el evento para el Menu Principal
+    document.querySelector('.nav-link.active').addEventListener('click', function() {
+        showContent('mainContent', 'Main Content');
+    });
     </script>
 
 
