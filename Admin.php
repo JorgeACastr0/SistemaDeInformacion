@@ -52,7 +52,7 @@ $insertDocenteSQL = "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email,I
                     <div class="text-center" style="margin: 20px 0;">
                         <img src="Img/cara1.jpg" alt="Usuario" class="rounded-circle"
                             style="width: 80px; height: 80px;">
-                        <h6 class="text-white">Nombre del Usuario</h6>
+                        <h6 class="text-white">Nombre del Docente</h6>
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
