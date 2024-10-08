@@ -318,3 +318,16 @@ table.styled-table tbody td form button[name="delete"]:hover {
 
 
 /*Parte 2 de la tabla*/
+
+
+
+/* Agrega estilos adicionales aquí */
+#docenteForm {
+  background-color: #f8f9fa;
+  /* Fondo claro */
+}
+
+.form-label {
+  font-weight: bold;
+  /* Negrita para etiquetas */
+}

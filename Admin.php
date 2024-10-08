@@ -135,16 +135,12 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                 </div>
 
 
-
-
-
-
                 <!--Contenidos especificos (Docentes, Estudiantes y reportes)-->
 
                 <div id="docentesContent" style="display: none;">
 
 
-                    <!--panelAdmin-->
+                    <!--Tabla Docentes Agregados panelAdmin-->
                     <div class="table-responsive ">
                         <table class="table  table-sm table-hover table-dark styled-table ">
                             <thead>
@@ -163,25 +159,25 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                                 if ($query) {
                                     while ($row = mysqli_fetch_array($query)) {
                                         ?>
-                                <tr>
-                                    <td><?= $row["Id_Docente"] ?></td>
-                                    <td><?= $row["Nombre"] ?></td>
-                                    <td><?= $row["Apellido"] ?></td>
-                                    <td><?= $row["Email"] ?></td>
-                                    <td>
-                                        <form class=" text-center" method='POST'>
-                                            <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
-                                            <button type='submit' name='editar'>Editar</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form class=" text-center" method='POST' action=''>
-                                            <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
-                                            <button type='submit' name='delete'>Eliminar</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <?php
+                                        <tr>
+                                            <td><?= $row["Id_Docente"] ?></td>
+                                            <td><?= $row["Nombre"] ?></td>
+                                            <td><?= $row["Apellido"] ?></td>
+                                            <td><?= $row["Email"] ?></td>
+                                            <td>
+                                                <form class=" text-center" method='POST'>
+                                                    <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
+                                                    <button type='submit' name='editar'>Editar</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form class=" text-center" method='POST' action=''>
+                                                    <input type='hidden' name='id' value="<?= $row["Id_Docente"] ?>">
+                                                    <button type='submit' name='delete'>Eliminar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php
                                     }
                                 } else {
                                     // Manejo de errores
@@ -193,7 +189,92 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                     </div>
 
 
+                    <div>
+
+                        <div class="col-12 mb-2">
+                            <button id="toggleFormBtn" class="btn btn-secondary">Agregar Docente</button>
+                        </div>
+                        <form id="docenteForm" class="mt-4 needs-validation" novalidate
+                            style="display: none; border: 1px solid #ced4da; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 20px;">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="validationTooltip05" class="form-label">ID Docente</label>
+                                    <input type="number" placeholder="ID Docente" minlength="2" maxlength="10"
+                                        class="form-control" id="validationTooltip05" required>
+                                    <div class="invalid-tooltip">
+                                        Coloca un ID válido.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="validationTooltip01" class="form-label">Nombre</label>
+                                    <input type="text" placeholder="Nombre" minlength="3" maxlength="40"
+                                        class="form-control" id="validationTooltip01" required>
+                                    <div class="valid-tooltip">
+                                        Looks good!
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="validationTooltip02" class="form-label">Apellido</label>
+                                    <input type="text" placeholder="Apellido" minlength="3" maxlength="40"
+                                        class="form-control" id="validationTooltip02" required>
+                                    <div class="valid-tooltip">
+                                        Looks good!
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="validationTooltipUsername" class="form-label">Correo electrónico</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" placeholder="Correo electrónico" minlength="3" maxlength="40"
+                                            class="form-control" id="validationTooltipUsername"
+                                            aria-describedby="validationTooltipUsernamePrepend" required>
+                                        <span class="input-group-text"
+                                            id="validationTooltipUsernamePrepend">@uniminuto.edu.co</span>
+                                        <div class="invalid-tooltip">
+                                            No se puede repetir usuarios, coloca un docente válido.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="validationTooltipPassword" class="form-label">Contraseña</label>
+                                    <input type="password" placeholder="Contraseña" minlength="6" maxlength="15"
+                                        class="form-control" id="validationTooltipPassword" required>
+                                    <div class="invalid-tooltip">
+                                        Coloca una contraseña válida.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Enviar formulario</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+
+                    </div>
+
+
+                    <script>
+                        document.getElementById('toggleFormBtn').addEventListener('click', function () {
+                            const form = document.getElementById('docenteForm');
+                            if (form.style.display === 'none' || form.style.display === '') {
+                                form.style.display = 'block';
+                                this.textContent = 'Ocultar Formulario';
+                            } else {
+                                form.style.display = 'none';
+                                this.textContent = 'Agregar Docente';
+                            }
+                        });
+                    </script>
+
+
                 </div>
+
 
 
 
@@ -203,13 +284,13 @@ $query = mysqli_query($conn, $leerDocentesSQL);
                 </div>
 
                 <div id="reportesContent" style="display: none;">
-                    < <p>Aquí va el contenido de los reportes...</p>
+                    <p>Aquí va el contenido de los reportes...</p>
                 </div>
 
 
 
 
-                <div id="mainContent">
+                <div id="mainContent" style="display: block;">
 
                     <!--Se implementa para que desaparezca el contenido cuando Js active algun modulo-->
                     <!--Espacio de grafica-->
@@ -353,58 +434,52 @@ $query = mysqli_query($conn, $leerDocentesSQL);
 
     <script src="Js-Proyecto/main.js"></script>
     <script>
-    feather.replace(); // Inicializa Feather Icons (Para que esten disponibles cuando se inicialice el sistema)
+        feather.replace(); // Inicializa Feather Icons (Para que esten disponibles cuando se inicialice el sistema)
     </script>
+
+
 
     <!--Permite accionar ventanas y oculta contenido (Menu,Docentes,Estudiantes,Reportes)-->
     <script>
-    function showContent(contentId) {
-        var contents = ['docentesContent', 'estudiantesContent', 'reportesContent', 'mainContent'];
-        contents.forEach(function(id) {
-            var element = document.getElementById(id);
-            element.style.display = (id === contentId) ? 'block' : 'none';
+        function showContent(contentId, title) {
+            // Lista de los IDs de los contenidos que quieres controlar
+            var contents = ['mainContent', 'docentesContent', 'estudiantesContent', 'reportesContent'];
+
+            // Oculta todos los contenidos
+            contents.forEach(function (id) {
+                var element = document.getElementById(id);
+                element.style.display = 'none'; // Ocultar cada sección
+            });
+
+            // Muestra solo el contenido correspondiente
+            var activeElement = document.getElementById(contentId);
+            if (activeElement) {
+                activeElement.style.display = 'block'; // Mostrar la sección activa
+            }
+
+            // Actualiza el título de la página
+            document.getElementById('page-title').innerText = title;
+        }
+
+        // Asocia cada botón de navegación con su contenido correspondiente
+        document.getElementById('showDocentes').addEventListener('click', function () {
+            showContent('docentesContent', 'Docentes');
         });
-    }
 
-    document.getElementById('showDocentes').addEventListener('click', function() {
-        showContent('docentesContent');
-    });
+        document.getElementById('showEstudiantes').addEventListener('click', function () {
+            showContent('estudiantesContent', 'Estudiantes');
+        });
 
-    document.getElementById('showEstudiantes').addEventListener('click', function() {
-        showContent('estudiantesContent');
-    });
+        document.getElementById('showReportes').addEventListener('click', function () {
+            showContent('reportesContent', 'Reportes');
+        });
 
-    document.getElementById('showReportes').addEventListener('click', function() {
-        showContent('reportesContent');
-    });
+        // Agrega el evento para el Menu Principal
+        document.querySelector('.nav-link.active').addEventListener('click', function () {
+            showContent('mainContent', 'Main Content');
+        });
     </script>
 
-
-
-    <!--Script para cambio de nombre automatico-->
-    <script>
-    function showContent(contentId, title) {
-        var contents = ['docentesContent', 'estudiantesContent', 'reportesContent'];
-        contents.forEach(function(id) {
-            var element = document.getElementById(id);
-            element.style.display = (id === contentId) ? 'block' : 'none';
-        });
-        // Actualiza el título de la página
-        document.getElementById('page-title').innerText = title;
-    }
-
-    document.getElementById('showDocentes').addEventListener('click', function() {
-        showContent('docentesContent', 'Docentes');
-    });
-
-    document.getElementById('showEstudiantes').addEventListener('click', function() {
-        showContent('estudiantesContent', 'Estudiantes');
-    });
-
-    document.getElementById('showReportes').addEventListener('click', function() {
-        showContent('reportesContent', 'Reportes');
-    });
-    </script>
 
 </body>
 

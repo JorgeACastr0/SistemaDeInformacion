@@ -45,7 +45,9 @@
 
     <!-- Barra de navegacion -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-column" id="sidebar" style="height: 100vh; width: 250px; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; margin-top: 80px; border-radius: 0 30px 15px 0; z-index: 11;"> <!-- Ajusta el valor aquí para que emepzara desde un poco mas abajo -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-column" id="sidebar"
+        style="height: 100vh; width: 250px; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; margin-top: 80px; border-radius: 0 30px 15px 0; z-index: 11;">
+        <!-- Ajusta el valor aquí para que emepzara desde un poco mas abajo -->
 
         <div class="text-center" style="margin: 20px 0;">
             <img src="Img/cara1.jpg" alt="Usuario" class="rounded-circle" style="width: 80px; height: 80px;">
@@ -77,7 +79,8 @@
 
 
     <!-- Botón para desplegar el menú en pantallas pequeñas -->
-    <button id="toggleButton" class="btn btn-primary" style="display: none; position: fixed; top: 10px; left: 10px;">☰</button>
+    <button id="toggleButton" class="btn btn-primary"
+        style="display: none; position: fixed; top: 10px; left: 10px;">☰</button>
 
     <!-- Bootstrap y jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -86,7 +89,7 @@
 
     <script>
         // Script para ocultar la barra lateral en pantallas pequeñas
-        $(document).ready(function() {
+        $(document).ready(function () {
             function checkWidth() {
                 if ($(window).width() < 768) {
                     $('#sidebar').hide(); // Ocultar la barra lateral
@@ -98,13 +101,13 @@
             }
 
             // Función para alternar la visibilidad de la barra lateral
-            $('#toggleButton').click(function() {
+            $('#toggleButton').click(function () {
                 $('#sidebar').toggle(); // Alternar la visibilidad de la barra lateral
             });
 
             checkWidth(); // Llamar a la función al cargar la página
 
-            $(window).resize(function() {
+            $(window).resize(function () {
                 checkWidth(); // Llamar a la función al redimensionar la ventana
             });
         });
@@ -247,3 +250,58 @@
 </body>
 
 </html>
+
+
+
+<!--
+                        <form id="docenteForm" class="mt-4 row g-3 needs-validation" novalidate style="display: none;">
+                            <div class="col-md-4 position-relative">
+                                <input type="number" placeholder="ID Docente" minlength="2" maxlength="10"
+                                    class="form-control" id="validationTooltip05" required>
+                                <div class="invalid-tooltip">
+                                    Coloca un ID válido.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 position-relative">
+                                <input type="text" placeholder="Nombre" minlength="3" maxlength="40"
+                                    class="form-control" id="validationTooltip01" required>
+                                <div class="valid-tooltip">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 position-relative">
+                                <input type="text" placeholder="Apellido" minlength="3" maxlength="40"
+                                    class="form-control" id="validationTooltip02" required>
+                                <div class="valid-tooltip">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 position-relative">
+                                <div class="input-group has-validation">
+                                    <input type="text" placeholder="Correo electrónico" minlength="3" maxlength="40"
+                                        class="form-control" id="validationTooltipUsername"
+                                        aria-describedby="validationTooltipUsernamePrepend" required>
+                                    <span class="input-group-text"
+                                        id="validationTooltipUsernamePrepend">@uniminuto.edu.co</span>
+                                    <div class="invalid-tooltip">
+                                        No se puede repetir usuarios, coloca un docente válido.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 position-relative">
+                                <input type="password" placeholder="Contraseña" minlength="6" maxlength="15"
+                                    class="form-control" id="validationTooltipPassword" required>
+                                <div class="invalid-tooltip">
+                                    Coloca una contraseña válida.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Enviar formulario</button>
+                            </div>
+                        </form>
+                            -->
