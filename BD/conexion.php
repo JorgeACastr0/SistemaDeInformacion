@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 
 
 $host = 'localhost:3307'; // IP del contenedor MySQL
-$db = 'BaseDatosTutorias'; // Nombre de tu base de datos
+$db = 'pruebas'; // Nombre de tu base de datos
 $user = 'root'; // Usuario
 $pass = '271198'; // Contraseña
 
@@ -19,4 +19,3 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
-?>
