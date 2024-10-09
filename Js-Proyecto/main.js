@@ -27,3 +27,18 @@ document.addEventListener('DOMContentLoaded', function () {
         body.classList.toggle('sidebar-open');
     });
 });
+
+// In your service worker
+self.addEventListener('message', (event) => {
+    // Simulate a long-running task
+    setTimeout(() => {
+        try {
+            // Send the response
+            event.source.postMessage('Response from service worker');
+        } catch (error) {
+            console.error('Error sending response:', error);
+        }
+    }, 2000);
+
+    return true; // Indicate an asynchronous response
+});

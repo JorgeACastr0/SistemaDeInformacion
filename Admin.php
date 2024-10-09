@@ -1,30 +1,17 @@
 <?php
-session_start();
-
-// Variables de conexión
-$ubicacionDB = "localhost:3307";
-$usuarioDB = "root";
-$claveDB = "271198";
-$nombreDB = "pruebas";
-
-// Crea la conexión a la BD MySQL
-$datosConexion = mysqli_connect($ubicacionDB, $usuarioDB, $claveDB, $nombreDB);
-
-// Comprueba que se haya conectado 
-if (!$datosConexion) {
-    die("Conexión a la BD fallida: " . mysqli_connect_error());
-}
-
+include 'BD/conexion.php';
+/*Apartado sql Docentes tener en cuenta Metodo POST */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST["nombre"], $_POST["apellido"], $_POST["email"], $_POST["contraseña"])) {
     $id_docente = mysqli_real_escape_string($datosConexion, $_POST['id_docente']);
     $nombreDocente = mysqli_real_escape_string($datosConexion, $_POST['nombre']);
     $apellidoDocente = mysqli_real_escape_string($datosConexion, $_POST['apellido']);
     $correoDocente = mysqli_real_escape_string($datosConexion, $_POST['email']);
     $contraseña = mysqli_real_escape_string($datosConexion, $_POST['contraseña']);
+    $emailDocente = $correoDocente . '@uniminuto.edu.co';
 
-    $insertarUsuariosSQL = "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email, Contraseña) VALUES ('$id_docente', '$nombreDocente', '$apellidoDocente', '$correoDocente', '$contraseña')";
+    $insertarDocenteSQL = "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email, Contraseña) VALUES ('$id_docente', '$nombreDocente', '$apellidoDocente', '$emailDocente', '$contraseña')";
 
-    if (mysqli_query($datosConexion, $insertarUsuariosSQL)) {
+    if (mysqli_query($datosConexion, $insertarDocenteSQL)) {
         header("Location: Admin.php"); // Redirige para evitar reenvíos
         exit();
     } else {
@@ -44,8 +31,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
     <script src="https://unpkg.com/feather-icons"></script>
     <title>Panel Administrador</title>
 </head>
+<div class=" text-center text-info bg-dark" id="currentDateAll"></div>
 
 <body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentDateAll = document.getElementById('currentDateAll');
+            if (currentDateAll) {
+                let formattedDate = new Date().toLocaleDateString(); // Example date formatting
+                currentDateAll.innerText = formattedDate;
+            } else {
+                console.error("Element with ID 'currentDateAll' not found.");
+            }
+        });
+    </script>
     <!-- Barra de navegación -->
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">MinuTech</a>
@@ -177,6 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                                             <td>{$row['Nombre']}</td>
                                             <td>{$row['Apellido']}</td>
                                             <td>{$row['Email']}</td>
+                                            <td>{$row['Contraseña']}</td>
                                             <td>
                                                 <form method='POST' class='text-center'>
                                                     <input type='hidden' name='id' value='{$row['Id_Docente']}'>
@@ -198,6 +199,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                             </tbody>
                         </table>
                     </div>
+                    <!--Parfte de editar docentes-->
+                    <?php
+
+                    if (isset($_POST['editar'])) {
+                        $id = intval($_POST['id']); // Asegúrate de convertir a entero
+                        $sql = "SELECT * FROM Docentes WHERE Id_Docente = ?";
+
+                        $stmt = mysqli_prepare($datosConexion, $sql);
+                        mysqli_stmt_bind_param($stmt, 'i', $id);
+                        mysqli_stmt_execute($stmt);
+                        $result = mysqli_stmt_get_result($stmt);
+
+                        if ($row = mysqli_fetch_array($result)) {
+                            echo
+                            "<div id='editarFormulario'>
+                                <h2>Editar Usuario</h2>
+                                <form action='Admin.php' method='post'>
+                                    <input type='hidden' name='id_docente' value='{$row['Id_Docente']}' required>
+                                    <div class='mb-3'>
+                                        <label for='nombre' class='form-label'>Nombre</label>
+                                        <input type='text' name='Nombre' value='{$row['Nombre']}' required class='form-control' id='nombre'>
+                                    </div>
+                                    <div class='mb-3'>
+                                        <label for='apellido' class='form-label'>Apellido</label>
+                                        <input type='text' name='Apellido' value='{$row['Apellido']}' required class='form-control' id='apellido'>
+                                    </div>
+                                    <div class='mb-3'>
+                                        <label for='email' class='form-label'>Email</label>
+                                        <input type='text' name='Email' value='{$row['Email']}' required class='form-control' id='email'>
+                                    </div>
+                                    <div class='mb-3'>
+                                        <label for='contraseña' class='form-label'>Contraseña</label>
+                                        <input type='text' name='contraseña' value='{$row['Contraseña']}' required class='form-control' id='contraseña'>
+                                    </div>
+                                    <input type='submit' name='update' value='Actualizar' class='btn btn-primary'>
+                                </form>
+                            </div>";
+                        } else {
+                            echo "<p>No se encontró el docente.</p>";
+                        }
+                    }
+
+                    if (isset($_POST['update'])) {
+                        $id_docente = $_POST['id_docente']; // Cambié el nombre a $id_docente para que sea consistente
+                        $nombre = mysqli_real_escape_string($datosConexion, $_POST['Nombre']);
+                        $apellido = mysqli_real_escape_string($datosConexion, $_POST['Apellido']);
+                        $email = mysqli_real_escape_string($datosConexion, $_POST['Email']);
+                        $contraseña = mysqli_real_escape_string($datosConexion, $_POST['contraseña']);
+
+                        // Actualizar los datos del docente
+                        $sqlUpdateDocente = "UPDATE Docentes SET Nombre='$nombre', Apellido='$apellido', Email='$email', Contraseña='$contraseña' WHERE Id_Docente='$id_docente'";
+
+                        if (mysqli_query($datosConexion, $sqlUpdateDocente)) {
+                            echo "<p>Datos actualizados correctamente.</p>";
+                        } else {
+                            echo "<p>Error al actualizar: " . mysqli_error($datosConexion) . "</p>";
+                        }
+
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+
+
+
+                    ?>
 
                     <!--Agregar docentes-->
                     <div>

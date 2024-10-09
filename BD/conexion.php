@@ -1,21 +1,16 @@
 <?php
+session_start();
 
+// Variables de conexión
+$ubicacionDB = "localhost:3307";
+$usuarioDB = "root";
+$claveDB = "271198";
+$nombreDB = "BaseDatosTutorias";
 
-// Activa la visualización de errores
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Crea la conexión a la BD MySQL
+$datosConexion = mysqli_connect($ubicacionDB, $usuarioDB, $claveDB, $nombreDB);
 
-
-$host = 'localhost:3307'; // IP del contenedor MySQL
-$db = 'pruebas'; // Nombre de tu base de datos
-$user = 'root'; // Usuario
-$pass = '271198'; // Contraseña
-
-// Crear conexión
-
-
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+// Comprueba que se haya conectado 
+if (!$datosConexion) {
+    die("Conexión a la BD fallida: " . mysqli_connect_error());
 }
