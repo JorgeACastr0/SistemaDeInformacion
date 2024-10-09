@@ -36,15 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
 <body>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let currentDateAll = document.getElementById('currentDateAll');
-            if (currentDateAll) {
-                let formattedDate = new Date().toLocaleDateString(); // Example date formatting
-                currentDateAll.innerText = formattedDate;
-            } else {
-                console.error("Element with ID 'currentDateAll' not found.");
-            }
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentDateAll = document.getElementById('currentDateAll');
+        if (currentDateAll) {
+            let formattedDate = new Date().toLocaleDateString(); // Example date formatting
+            currentDateAll.innerText = formattedDate;
+        } else {
+            console.error("Element with ID 'currentDateAll' not found.");
+        }
+    });
     </script>
     <!-- Barra de navegación -->
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -328,16 +328,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                 </div>
 
                 <script>
-                    document.getElementById('toggleFormBtn').addEventListener('click', function() {
-                        const form = document.getElementById('docenteForm');
-                        if (form.style.display === 'none' || form.style.display === '') {
-                            form.style.display = 'block';
-                            this.textContent = 'Ocultar Formulario';
-                        } else {
-                            form.style.display = 'none';
-                            this.textContent = 'Agregar Docente';
-                        }
-                    });
+                document.getElementById('toggleFormBtn').addEventListener('click', function() {
+                    const form = document.getElementById('docenteForm');
+                    if (form.style.display === 'none' || form.style.display === '') {
+                        form.style.display = 'block';
+                        this.textContent = 'Ocultar Formulario';
+                    } else {
+                        form.style.display = 'none';
+                        this.textContent = 'Agregar Docente';
+                    }
+                });
                 </script>
 
 
@@ -347,49 +347,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
 
     <script>
-        function showContent(contentId, title) {
-            // Lista de los IDs de los contenidos que quieres controlar
-            var contents = ['mainContent', 'docentesContent', 'estudiantesContent', 'reportesContent'];
+    function showContent(contentId, title) {
+        // Lista de los IDs de los contenidos que quieres controlar
+        var contents = ['mainContent', 'docentesContent', 'estudiantesContent', 'reportesContent'];
 
-            // Oculta todos los contenidos
-            contents.forEach(function(id) {
-                var element = document.getElementById(id);
-                element.style.display = 'none'; // Ocultar cada sección
-            });
+        // Oculta todos los contenidos
+        contents.forEach(function(id) {
+            var element = document.getElementById(id);
+            element.style.display = 'none'; // Ocultar cada sección
+        });
 
-            // Muestra solo el contenido correspondiente
-            var activeElement = document.getElementById(contentId);
-            if (activeElement) {
-                activeElement.style.display = 'block'; // Mostrar la sección activa
-            }
-
-            // Actualiza el título de la página
-            document.getElementById('page-title').innerText = title;
+        // Muestra solo el contenido correspondiente
+        var activeElement = document.getElementById(contentId);
+        if (activeElement) {
+            activeElement.style.display = 'block'; // Mostrar la sección activa
         }
 
-        // Asocia cada botón de navegación con su contenido correspondiente
-        document.getElementById('showDocentes').addEventListener('click', function() {
-            showContent('docentesContent', 'Docentes');
-        });
+        // Actualiza el título de la página
+        document.getElementById('page-title').innerText = title;
+    }
 
-        document.getElementById('showEstudiantes').addEventListener('click', function() {
-            showContent('estudiantesContent', 'Estudiantes');
-        });
+    // Asocia cada botón de navegación con su contenido correspondiente
+    document.getElementById('showDocentes').addEventListener('click', function() {
+        showContent('docentesContent', 'Docentes');
+    });
 
-        document.getElementById('showReportes').addEventListener('click', function() {
-            showContent('reportesContent', 'Reportes');
-        });
+    document.getElementById('showEstudiantes').addEventListener('click', function() {
+        showContent('estudiantesContent', 'Estudiantes');
+    });
 
-        // Agrega el evento para el Menu Principal
-        document.querySelector('.nav-link.active').addEventListener('click', function() {
-            showContent('mainContent', 'Main Content');
-        });
+    document.getElementById('showReportes').addEventListener('click', function() {
+        showContent('reportesContent', 'Reportes');
+    });
+
+    // Agrega el evento para el Menu Principal
+    document.querySelector('.nav-link.active').addEventListener('click', function() {
+        showContent('mainContent', 'Main Content');
+    });
     </script>
 
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script src="Js-Proyecto/main.js"></script>
     <script>
-        feather.replace();
+    feather.replace();
     </script>
 </body>
 
