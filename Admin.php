@@ -344,6 +344,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
             </main>
         </div>
     </div>
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+
     <script>
         function showContent(contentId, title) {
             // Lista de los IDs de los contenidos que quieres controlar
