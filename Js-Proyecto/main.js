@@ -42,3 +42,31 @@ self.addEventListener('message', (event) => {
 
     return true; // Indicate an asynchronous response
 });
+
+
+
+
+// Modificar el JavaScript para detectar el parámetro section y mostrar la sección correspondiente
+document.addEventListener('DOMContentLoaded', function() {
+    // Función para obtener el valor de un parámetro de la URL
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Obtener el parámetro "section" de la URL
+    let section = getParameterByName('section');
+
+    // Asegurarse de que la comparación sea en minúsculas
+    if (section) {
+        section = section.toLowerCase(); // Convertir a minúsculas
+        if (section === 'docentes') {
+            showContent('docentesContent', 'Docentes'); // Mostrar la sección "Docentes"
+        }
+        // Puedes agregar más secciones si es necesario
+    }
+});

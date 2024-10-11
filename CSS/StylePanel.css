@@ -1,0 +1,6 @@
+/* Pestaña activa */
+.nav-linK.active{
+    
+    background-color: #007bff; /* Color azul de ejemplo */
+    color: white;
+}

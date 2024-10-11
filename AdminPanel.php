@@ -1,52 +1,28 @@
 <?php
 include 'BD/conexion.php';
+
 /*Apartado sql Docentes tener en cuenta Metodo POST */
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST["nombre"], $_POST["apellido"], $_POST["email"], $_POST["contraseña"])) {
-    $id_docente = mysqli_real_escape_string($datosConexion, $_POST['id_docente']);
-    $nombreDocente = mysqli_real_escape_string($datosConexion, $_POST['nombre']);
-    $apellidoDocente = mysqli_real_escape_string($datosConexion, $_POST['apellido']);
-    $correoDocente = mysqli_real_escape_string($datosConexion, $_POST['email']);
-    $contraseña = mysqli_real_escape_string($datosConexion, $_POST['contraseña']);
-    $emailDocente = $correoDocente . '@uniminuto.edu.co';
 
-    $insertarDocenteSQL = "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email, Contraseña) VALUES ('$id_docente', '$nombreDocente', '$apellidoDocente', '$emailDocente', '$contraseña')";
-
-    if (mysqli_query($datosConexion, $insertarDocenteSQL)) {
-        header("Location: Admin.php?section=docentes"); // Redirige para evitar reenvíos
-        exit();
-    } else {
-        $error = "Error: " . mysqli_error($datosConexion);
-    }
-}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link href="CSS/nuevo.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/StylePanel.css">
+    <!--ICONOS -->
     <script src="https://unpkg.com/feather-icons"></script>
+
     <title>Panel Administrador</title>
 </head>
-<div class=" text-center text-info bg-dark" id="currentDateAll"></div>
+
+
 
 <body>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let currentDateAll = document.getElementById('currentDateAll');
-        if (currentDateAll) {
-            let formattedDate = new Date().toLocaleDateString(); // Example date formatting
-            currentDateAll.innerText = formattedDate;
-        } else {
-            console.error("Element with ID 'currentDateAll' not found.");
-        }
-    });
-    </script>
     <!-- Barra de navegación -->
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">MinuTech</a>
@@ -64,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
             </div>
         </div>
     </header>
-
     <div class="container-fluid">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
@@ -76,13 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link " aria-current="page" href="#" id="showMenu">
                                 <span data-feather="home">Menu Principal</span>
                                 Menu Principal
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="#" id="showDocentes">
+                            <a class="nav-link " href="#DocentesMenu" id="showDocentes">
                                 <span data-feather="users"></span>
                                 Docentes
                             </a>
@@ -135,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                     </ul>
                 </div>
             </nav>
-
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -155,8 +129,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
 
                 <!--Contenidos especificos (Docentes, Estudiantes y reportes)-->
                 <div id="docentesContent" style="display: none;">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-hover table-dark styled-table">
+                    <!--Agregar docentes-->
+                    <div>
+                        <form id="docenteForm" method="POST" class="mt-4 needs-validation" novalidate
+                            style=" border: 1px solid #ced4da; border-radius: 0.5rem; padding: 20px;">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="validationTooltip05" class="form-label">ID Docente</label>
+                                    <input type="number" name="id_docente" class="form-control" id="validationTooltip05"
+                                        required>
+                                    <div class="invalid-tooltip">Coloca un ID válido.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="validationTooltip01" class="form-label">Nombre</label>
+                                    <input type="text" name="nombre" class="form-control" id="validationTooltip01"
+                                        required>
+                                    <div class="valid-tooltip">Looks good!</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="validationTooltip02" class="form-label">Apellido</label>
+                                    <input type="text" name="apellido" class="form-control" id="validationTooltip02"
+                                        required>
+                                    <div class="valid-tooltip">Looks good!</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="validationTooltipUsername" class="form-label">Correo electrónico</label>
+                                    <div class="input-group">
+                                        <input type="text" name="email" class="form-control"
+                                            id="validationTooltipUsername" required>
+                                        <span class="input-group-text">@uniminuto.edu.co</span>
+                                        <div class="invalid-tooltip">No se puede repetir usuarios, coloca un docente
+                                            válido.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="validationTooltipPassword" class="form-label">Contraseña</label>
+                                    <input type="password" name="contraseña" class="form-control"
+                                        id="validationTooltipPassword" required>
+                                    <div class="invalid-tooltip">Coloca una contraseña válida.</div>
+                                </div>
+                                <div class=" col-12">
+                                    <button class="btn btn-primary" type="submit">Enviar formulario</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!--PARTE PHP-->
+                        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST["nombre"], $_POST["apellido"], $_POST["email"], $_POST["contraseña"])) {
+                            $id_docente = mysqli_real_escape_string($datosConexion, $_POST['id_docente']);
+                            $nombreDocente = mysqli_real_escape_string($datosConexion, $_POST['nombre']);
+                            $apellidoDocente = mysqli_real_escape_string($datosConexion, $_POST['apellido']);
+                            $correoDocente = mysqli_real_escape_string($datosConexion, $_POST['email']);
+                            $contraseña = mysqli_real_escape_string($datosConexion, $_POST['contraseña']);
+                            $emailDocente = $correoDocente . '@uniminuto.edu.co';
+
+                            $insertarDocenteSQL = "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email, Contraseña) VALUES ('$id_docente', '$nombreDocente', '$apellidoDocente', '$emailDocente', '$contraseña')";
+                            if (mysqli_query($datosConexion, $insertarDocenteSQL)) {
+                                echo "<div class='alert alert-success'>Docente agregado exitosamente.</div>";
+                                echo "<meta http-equiv='refresh' content='0; url=#DocentesMenu'>";
+                            } else {
+                                echo "<div class='alert alert-danger'>Error al agregar docente: " . mysqli_error($datosConexion) . "</div>";
+                            }
+                            
+                        } ?>
+                    </div>
+
+                    <div class="mt-4 col-12 mb-2">
+                            <button id="toggleFormBtn" class="btn btn-secondary">Agregar Docente</button>
+                        </div>
+
+                    <div id="tablaMostrar" class="table-responsive " style="display: none;">
+                        <table class="table table-sm table-hover table-dark styled-table ">
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
@@ -168,13 +212,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                                     <th>Eliminar</th>
                                 </tr>
                             </thead>
+                            <!--MOSTRAR CONTENIDO TABLA DOCENTE-->
+
                             <tbody>
-                                <?php
-                                $VerDocentesSQL = "SELECT * FROM Docentes";
-                                $queryDocentes = mysqli_query($datosConexion, $VerDocentesSQL);
-                                if ($queryDocentes) {
-                                    while ($row = mysqli_fetch_array($queryDocentes)) {
-                                        echo "<tr>
+                                
+                                    <?php
+                                    $VerDocentesSQL = "SELECT * FROM Docentes";
+                                    $queryDocentes = mysqli_query($datosConexion, $VerDocentesSQL);
+                                    if ($queryDocentes) {
+                                        while ($row = mysqli_fetch_array($queryDocentes)) {
+                                            echo "<tr>
                                             <td>{$row['Id_Docente']}</td>
                                             <td>{$row['Nombre']}</td>
                                             <td>{$row['Apellido']}</td>
@@ -193,17 +240,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                                                 </form>
                                             </td>
                                         </tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>Error en la consulta: " . mysqli_error($datosConexion) . "</td></tr>";
                                     }
-                                } else {
-                                    echo "<tr><td colspan='6'>Error en la consulta: " . mysqli_error($datosConexion) . "</td></tr>";
-                                }
-                                ?>
-                            </tbody>
+                                    ?>
+                                    </tbody>
                         </table>
                     </div>
                     <!--Parte de editar docentes-->
-                    <?php
-
+                    <!--Parte PHP-->
+                    <?PHP
                     if (isset($_POST['editar'])) {
                         $id = intval($_POST['id']); // Asegúrate de convertir a entero
                         $sql = "SELECT * FROM Docentes WHERE Id_Docente = ?";
@@ -217,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                             echo
                             "<div id='editarFormulario'>
                                 <h2>Editar Usuario</h2>
-                                <form action='Admin.php' method='post'>
+                                <form action='AdminPanel.php' method='post'>
                                     <input type='hidden' name='id_docente' value='{$row['Id_Docente']}' required>
                                     <div class='mb-3'>
                                         <label for='nombre' class='form-label'>Nombre</label>
@@ -266,136 +313,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
 
                     ?>
 
-                    <!--Agregar docentes-->
-                    <div>
-                        <div class="col-12 mb-2">
-                            <button id="toggleFormBtn" class="btn btn-secondary">Agregar Docente</button>
-                        </div>
-
-                        <form id="docenteForm" method="POST" action="" class="mt-4 needs-validation" novalidate
-                            style="display: none; border: 1px solid #ced4da; border-radius: 0.5rem; padding: 20px;">
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <label for="validationTooltip05" class="form-label">ID Docente</label>
-                                    <input type="number" name="id_docente" class="form-control" id="validationTooltip05"
-                                        required>
-                                    <div class="invalid-tooltip">Coloca un ID válido.</div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationTooltip01" class="form-label">Nombre</label>
-                                    <input type="text" name="nombre" class="form-control" id="validationTooltip01"
-                                        required>
-                                    <div class="valid-tooltip">Looks good!</div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationTooltip02" class="form-label">Apellido</label>
-                                    <input type="text" name="apellido" class="form-control" id="validationTooltip02"
-                                        required>
-                                    <div class="valid-tooltip">Looks good!</div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationTooltipUsername" class="form-label">Correo electrónico</label>
-                                    <div class="input-group">
-                                        <input type="text" name="email" class="form-control"
-                                            id="validationTooltipUsername" required>
-                                        <span class="input-group-text">@uniminuto.edu.co</span>
-                                        <div class="invalid-tooltip">No se puede repetir usuarios, coloca un docente
-                                            válido.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="validationTooltipPassword" class="form-label">Contraseña</label>
-                                    <input type="password" name="contraseña" class="form-control"
-                                        id="validationTooltipPassword" required>
-                                    <div class="invalid-tooltip">Coloca una contraseña válida.</div>
-                                </div>
-                                <div class=" col-12">
-                                    <button class="btn btn-primary" type="submit">Enviar formulario</button>
-                                </div>
-                            </div>
-                        </form>
-                        <?php if (isset($error)) echo "<div class='alert alert-danger'>{$error}</div>"; ?>
-
-                    </div>
-
                 </div>
-
+                <!-- Contenido de estudiantes -->
                 <div id="estudiantesContent" style="display: none;">
 
                     <p>Aquí va el contenido de los estudiantes...</p>
                 </div>
-
+                <!-- Contenido de reportes -->
                 <div id="reportesContent" style="display: none;">
                     <p>Aquí va el contenido de los reportes...</p>
                 </div>
+                <!-- Contenido principal por defecto -->
                 <div id="mainContent" style="display: block;">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, optio. Distinctio, perspiciatis dicta
+                    quae repellendus tempora veritatis nostrum. Dolorum dolor ut nostrum fuga accusantium quos debitis
+                    modi laudantium veritatis odit!
                 </div>
-
-                <script>
-                document.getElementById('toggleFormBtn').addEventListener('click', function() {
-                    const form = document.getElementById('docenteForm');
-                    if (form.style.display === 'none' || form.style.display === '') {
-                        form.style.display = 'block';
-                        this.textContent = 'Ocultar Formulario';
-                    } else {
-                        form.style.display = 'none';
-                        this.textContent = 'Agregar Docente';
-                    }
-                });
-                </script>
-
-
             </main>
+
         </div>
     </div>
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="Js-Proyecto/interaccion.js"></script>
+    <!--INICIA ICONOS-->
     <script>
-    function showContent(contentId, title) {
-        // Lista de los IDs de los contenidos que quieres controlar
-        var contents = ['mainContent', 'docentesContent', 'estudiantesContent', 'reportesContent'];
-
-        // Oculta todos los contenidos
-        contents.forEach(function(id) {
-            var element = document.getElementById(id);
-            element.style.display = 'none'; // Ocultar cada sección
-        });
-
-        // Muestra solo el contenido correspondiente
-        var activeElement = document.getElementById(contentId);
-        if (activeElement) {
-            activeElement.style.display = 'block'; // Mostrar la sección activa
-        }
-
-        // Actualiza el título de la página
-        document.getElementById('page-title').innerText = title;
-    }
-
-    // Asocia cada botón de navegación con su contenido correspondiente
-    document.getElementById('showDocentes').addEventListener('click', function() {
-        showContent('docentesContent', 'Docentes');
-    });
-
-    document.getElementById('showEstudiantes').addEventListener('click', function() {
-        showContent('estudiantesContent', 'Estudiantes');
-    });
-
-    document.getElementById('showReportes').addEventListener('click', function() {
-        showContent('reportesContent', 'Reportes');
-    });
-
-    // Agrega el evento para el Menu Principal
-    document.querySelector('.nav-link.active').addEventListener('click', function() {
-        showContent('mainContent', 'Main Content');
-    });
+        feather.replace();
     </script>
 
-    <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
-    <script src="Js-Proyecto/main.js"></script>
-    <script>
-    feather.replace();
-    </script>
 </body>
+
 
 </html>
