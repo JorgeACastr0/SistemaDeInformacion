@@ -4,7 +4,7 @@ session_start();
 // Variables de conexión
 $ubicacionDB = "localhost:3307";
 $usuarioDB = "root";
-$claveDB = "271198";
+$claveDB = "12345";
 $nombreDB = "BaseDatosTutorias";
 
 // Crea la conexión a la BD MySQL
