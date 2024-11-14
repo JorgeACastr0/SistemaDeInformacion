@@ -205,15 +205,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                     <?php
 
                     if (isset($_POST['editar'])) {
-                        $id = intval($_POST['id']); // Asegúrate de convertir a entero
+                        
+                        $id = intval($_POST['id']); 
                         $sql = "SELECT * FROM Docentes WHERE Id_Docente = ?";
 
                         $stmt = mysqli_prepare($datosConexion, $sql);
                         mysqli_stmt_bind_param($stmt, 'i', $id);
                         mysqli_stmt_execute($stmt);
                         $result = mysqli_stmt_get_result($stmt);
-
+                        
                         if ($row = mysqli_fetch_array($result)) {
+                            
                             echo
                             "<div id='editarFormulario'>
                                 <h2>Editar Usuario</h2>
@@ -244,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                     }
 
                     if (isset($_POST['update'])) {
-                        $id_docente = $_POST['id_docente']; // Cambié el nombre a $id_docente para que sea consistente
+                        $id_docente = $_POST['id_docente']; 
                         $nombre = mysqli_real_escape_string($datosConexion, $_POST['Nombre']);
                         $apellido = mysqli_real_escape_string($datosConexion, $_POST['Apellido']);
                         $email = mysqli_real_escape_string($datosConexion, $_POST['Email']);
@@ -254,13 +256,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["id_docente"], $_POST[
                         $sqlUpdateDocente = "UPDATE Docentes SET Nombre='$nombre', Apellido='$apellido', Email='$email', Contraseña='$contraseña' WHERE Id_Docente='$id_docente'";
 
                         if (mysqli_query($datosConexion, $sqlUpdateDocente)) {
+                            #header("Location: Admin.php?section=docentes"); // Redirige para evitar reenvíos
                             echo "<p>Datos actualizados correctamente.</p>";
                         } else {
                             echo "<p>Error al actualizar: " . mysqli_error($datosConexion) . "</p>";
                         }
 
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
+                        #echo "<meta http-equiv='refresh' content='0'>";
+                   }
 
 
 
