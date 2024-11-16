@@ -53,7 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Banner de Bienvenida -->
     <header class="bg-yellow py-5 text-center text-dark">
         <h1 class="display-4">Bienvenido</h1>
-        <p class="lead">Seleccione su rol para continuar</p>
+        <p class="lead"> <b>Al sistema de gestion de acompañamiento academico, </b></p>
+        <p class="lead"> <b> Seleccione su rol para continuar: </b></p>
     </header>
 
     <!-- Mostrar mensaje si el registro fue exitoso -->
@@ -88,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <h2>Estudiantes</h2>
                     </div>
                     <div class="card-body bg-light">
-                        <p class="card-text">Regístrese o ingrese para gestionar su cuenta.</p>
+                        <p class="card-text">Regístrese o ingrese para acceder al modulo de estudiante.</p>
                         <div class="d-flex justify-content-center gap-3">
                             <button class="btn btn-yellow btn-lg" id="btnRegister">Registrarse</button>
                             <a href="Login.php" class="btn btn-navy btn-lg">Ingresar</a>
@@ -106,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="card-body">
                     <form action="index.php" method="POST">
+                        <div class="mb-3">
                             <label for="nombre" class="form-label">ID</label>
                             <input type="text" class="form-control" id="Id" name="Id" required>
                         </div>
@@ -130,6 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="password" class="form-control" id="contraseña" name="contraseña" required>
                         </div>
                         <button type="submit" class="btn btn-navy">Registrar</button>
+                        
                     </form>
                 </div>
             </div>
