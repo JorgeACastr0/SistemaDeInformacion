@@ -144,23 +144,7 @@ include 'BD/conexion.php';
                                 </tr>
                             </thead>
                             <tbody id="tablaDocentes">
-                                <?php
-                                // Consulta para obtener la lista de docentes
-                                $sql = "SELECT * FROM Docentes";
-                                $result = mysqli_query($datosConexion, $sql);
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr>";
-                                    echo "<td>{$row['Id_Docente']}</td>";
-                                    echo "<td>{$row['Nombre']}</td>";
-                                    echo "<td>{$row['Apellido']}</td>";
-                                    echo "<td>{$row['Email']}</td>";
-                                    echo "<td>{$row['Contraseña']}</td>";
-                                    echo "<td>
-                                    <button class='btn btn-warning' onclick='cargarDocente({$row['Id_Docente']})'>Editar</button>
-                                    <button class='btn btn-danger' onclick='eliminarDocente({$row['Id_Docente']})'>Eliminar</button></td>";
-                                    echo "</tr>";
-                                }
-                                ?>
+                                
                             </tbody>
                         </table>
                     </div>

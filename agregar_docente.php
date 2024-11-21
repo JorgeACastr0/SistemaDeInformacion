@@ -1,22 +1,23 @@
 <?php
-include 'BD/conexion.php';
+require 'BD/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_docente = intval($_POST['id_docente']);
-    $nombre = mysqli_real_escape_string($datosConexion, $_POST['nombre']);
-    $apellido = mysqli_real_escape_string($datosConexion, $_POST['apellido']);
-    $email = mysqli_real_escape_string($datosConexion, $_POST['email']);
-    $contraseña = mysqli_real_escape_string($datosConexion, $_POST['contraseña']);
-    $emailDocente = $email . '@uniminuto.edu.co';
-    $sql = "INSERT INTO Docentes (Id_Docente, Nombre, Apellido, Email, Contraseña) VALUES (?, ?, ?, ?, ?)";
-    $stmt = mysqli_prepare($datosConexion, $sql);
-    mysqli_stmt_bind_param($stmt, 'issss', $id_docente, $nombre, $apellido, $emailDocente, $contraseña);
+    $id_docente= $_POST['id_docente'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $email = $_POST['email'];
+    $contraseña = $_POST['contraseña'];
 
-    if (mysqli_stmt_execute($stmt)) {
-        echo json_encode(['success' => true, 'message' => 'Docente agregado correctamente']);
+    // Inserción de datos en la base de datos
+    $sql = "INSERT INTO Docentes (Id_Docente,Nombre, Apellido, Email, Contraseña) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $datosConexion->prepare($sql);
+    $stmt->bind_param('issss',$id_docente,$nombre, $apellido, $email, $contraseña);
+
+    if ($stmt->execute()) {
+        echo "Docente agregado exitosamente";
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error al agregar el docente']);
+        echo "Error al agregar docente: " . $stmt->error;
     }
-    mysqli_stmt_close($stmt);
+    $stmt->close();
 }
 ?>
